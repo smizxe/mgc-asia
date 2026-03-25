@@ -61,16 +61,19 @@
   --emerald-check-text: #34d399;
   --emerald-stat-bg: rgba(16, 185, 129, 0.1);
   --emerald-stat-text: #34d399;
+  --aurora-bg-visible: 1;
+  --section-bg: #0a0e1a;
+  --section-alt-bg: #0f1629;
 }
 
 /* Light theme */
 [data-theme="light"] {
   --bg: #fafafa;
-  --bg-light: #f1f5f9;
-  --bg-card: rgba(255, 255, 255, 0.85);
-  --bg-card-alt: rgba(255, 255, 255, 0.75);
-  --bg-card-subtle: rgba(241, 245, 249, 0.6);
-  --bg-card-hover: rgba(241, 245, 249, 0.9);
+  --bg-light: #f5f7fa;
+  --bg-card: #ffffff;
+  --bg-card-alt: #ffffff;
+  --bg-card-subtle: #f8fafc;
+  --bg-card-hover: #f1f5f9;
   --foreground: #475569;
   --ink: #0f172a;
   --ink-secondary: #1e293b;
@@ -82,19 +85,19 @@
   --accent-text: #2256a3;
   --accent-text-blue: #2256a3;
   --accent-text-red: #d91f3f;
-  --line: rgba(148, 163, 184, 0.28);
-  --line-strong: rgba(226, 232, 240, 0.85);
-  --glass-bg: rgba(255, 255, 255, 0.85);
-  --glass-border: rgba(226, 232, 240, 0.85);
-  --glass-shadow: rgba(15, 23, 42, 0.08);
-  --glass-inset: rgba(255, 255, 255, 0.7);
-  --dashboard-bg: rgba(255, 255, 255, 0.92);
-  --dashboard-bar: rgba(248, 250, 252, 0.95);
+  --line: rgba(226, 232, 240, 0.9);
+  --line-strong: #e2e8f0;
+  --glass-bg: #ffffff;
+  --glass-border: #e2e8f0;
+  --glass-shadow: rgba(15, 23, 42, 0.06);
+  --glass-inset: rgba(255, 255, 255, 0.9);
+  --dashboard-bg: #ffffff;
+  --dashboard-bar: #f8fafc;
   --panel-bg-from: #ffffff;
   --panel-bg-to: #f8fafc;
-  --dot-red: rgba(239, 68, 68, 0.8);
-  --dot-yellow: rgba(234, 179, 8, 0.8);
-  --dot-green: rgba(34, 197, 94, 0.8);
+  --dot-red: #ef4444;
+  --dot-yellow: #eab308;
+  --dot-green: #22c55e;
   --badge-bg: rgba(34, 86, 163, 0.06);
   --badge-border: rgba(34, 86, 163, 0.15);
   --highlight-bg: rgba(16, 185, 129, 0.08);
@@ -102,25 +105,26 @@
   --highlight-text: #059669;
   --cta-bg: linear-gradient(180deg, #0f172a 0%, #020617 100%);
   --footer-bg: #ffffff;
-  --header-bg: rgba(255, 255, 255, 0.8);
-  --nav-bg: rgba(255, 255, 255, 0.85);
+  --header-bg: rgba(255, 255, 255, 0.85);
+  --nav-bg: rgba(255, 255, 255, 0.9);
   --nav-active-bg: #0f172a;
   --nav-active-text: #ffffff;
   --nav-text: #64748b;
-  --nav-hover-bg: rgba(241, 245, 249, 0.8);
-  --secondary-btn-bg: rgba(255, 255, 255, 0.94);
+  --nav-hover-bg: #f1f5f9;
+  --secondary-btn-bg: #ffffff;
   --secondary-btn-text: #334155;
   --secondary-btn-hover: #f8fafc;
   --logo-filter: none;
-  --aurora-base: rgba(250, 250, 250, 0.92);
-  --aurora-blend: multiply;
-  --grid-line: rgba(148, 163, 184, 0.06);
-  --glow-blue-opacity: 0.08;
-  --glow-red-opacity: 0.05;
+  --aurora-bg-visible: 0;
+  --grid-line: rgba(148, 163, 184, 0.08);
+  --glow-blue-opacity: 0.06;
+  --glow-red-opacity: 0.04;
   --emerald-check-bg: rgba(16, 185, 129, 0.12);
   --emerald-check-text: #059669;
   --emerald-stat-bg: rgba(16, 185, 129, 0.08);
   --emerald-stat-text: #059669;
+  --section-bg: #fafafa;
+  --section-alt-bg: #f5f7fa;
 }
 
 @theme inline {
@@ -176,6 +180,8 @@ a {
   z-index: 0;
   pointer-events: none;
   overflow: hidden;
+  opacity: var(--aurora-bg-visible);
+  transition: opacity 400ms ease;
 }
 
 .aurora-bg::before {
@@ -186,8 +192,8 @@ a {
   width: 200%;
   height: 200%;
   background:
-    radial-gradient(ellipse at 20% 50%, rgba(34, 86, 163, var(--glow-blue-opacity)) 0%, transparent 50%),
-    radial-gradient(ellipse at 80% 20%, rgba(217, 31, 63, var(--glow-red-opacity)) 0%, transparent 50%),
+    radial-gradient(ellipse at 20% 50%, rgba(34, 86, 163, 0.15) 0%, transparent 50%),
+    radial-gradient(ellipse at 80% 20%, rgba(217, 31, 63, 0.08) 0%, transparent 50%),
     radial-gradient(ellipse at 40% 80%, rgba(59, 130, 246, 0.06) 0%, transparent 50%);
   animation: aurora-drift 20s ease-in-out infinite alternate;
 }
@@ -210,6 +216,7 @@ a {
 .hero-section {
   position: relative;
   overflow: hidden;
+  background: var(--section-bg);
 }
 
 .hero-section::after {
@@ -348,7 +355,7 @@ a {
 .section-dark {
   position: relative;
   overflow: hidden;
-  background: var(--bg);
+  background: var(--section-bg);
 }
 
 .section-dark > * {
@@ -359,7 +366,7 @@ a {
 .section-alt {
   position: relative;
   overflow: hidden;
-  background: var(--bg-light);
+  background: var(--section-alt-bg);
 }
 
 .section-alt > * {
