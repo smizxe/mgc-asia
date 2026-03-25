@@ -13,14 +13,14 @@ export function SectionHeading({
 }: SectionHeadingProps) {
   return (
     <div className={align === "center" ? "mx-auto max-w-3xl text-center" : "max-w-3xl"}>
-      <p className="mb-4 text-xs uppercase tracking-[0.34em] text-[var(--accent)]">
+      <p className="mb-4 text-xs uppercase tracking-[0.34em]" style={{ color: "var(--accent-text-blue)" }}>
         {eyebrow}
       </p>
-      <h2 className="text-4xl leading-tight text-[var(--ink)] md:text-5xl">
+      <h2 className="text-3xl leading-tight md:text-4xl lg:text-5xl" style={{ color: "var(--ink)" }}>
         {title}
       </h2>
       {description ? (
-        <p className="mt-5 text-lg leading-8 text-[var(--muted)]">{description}</p>
+        <p className="mt-5 text-lg leading-8" style={{ color: "var(--muted)" }}>{description}</p>
       ) : null}
     </div>
   );

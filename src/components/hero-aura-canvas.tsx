@@ -32,28 +32,46 @@ export function HeroAuraCanvas() {
       height = canvas.height = canvas.parentElement.clientHeight;
     };
 
-    const animate = () => {
-      time += 0.0035;
-      ctx.fillStyle = "#FAFAFA";
-      ctx.fillRect(0, 0, width, height);
-      ctx.globalCompositeOperation = "multiply";
+    const getTheme = () =>
+      document.documentElement.getAttribute("data-theme") || "dark";
 
-      const numFolds = 18;
+    const animate = () => {
+      time += 0.003;
+      const isDark = getTheme() === "dark";
+
+      const baseFill = isDark ? "rgba(10, 14, 26, 0.92)" : "rgba(250, 250, 250, 0.92)";
+      ctx.fillStyle = baseFill;
+      ctx.fillRect(0, 0, width, height);
+      ctx.globalCompositeOperation = isDark ? "screen" : "multiply";
+
+      const numFolds = 14;
       for (let i = 0; i < numFolds; i += 1) {
         const normalizedX = i / numFolds;
         const xPos = normalizedX * width + Math.sin(time * 2.2 + i) * (width * 0.13);
-        const foldWidth = (width / numFolds) * 4.8;
+        const foldWidth = (width / numFolds) * 5;
         const waveIntensity = (Math.sin(time * 2.4 + i * 0.55) + 1) * 0.5;
 
         const gradient = ctx.createLinearGradient(0, 0, 0, height);
-        const blueMid = 0.018 + waveIntensity * 0.03;
-        const blueBase = 0.03 + waveIntensity * 0.05;
-        const redBase = 0.018 + waveIntensity * 0.035;
 
-        gradient.addColorStop(0, "rgba(250, 250, 250, 0)");
-        gradient.addColorStop(0.35, `rgba(34, 86, 163, ${blueMid})`);
-        gradient.addColorStop(0.72, `rgba(34, 86, 163, ${blueBase})`);
-        gradient.addColorStop(1, `rgba(217, 31, 63, ${redBase})`);
+        if (isDark) {
+          const blueMid = 0.012 + waveIntensity * 0.02;
+          const blueBase = 0.02 + waveIntensity * 0.03;
+          const redBase = 0.01 + waveIntensity * 0.02;
+
+          gradient.addColorStop(0, "rgba(10, 14, 26, 0)");
+          gradient.addColorStop(0.35, `rgba(34, 86, 163, ${blueMid})`);
+          gradient.addColorStop(0.72, `rgba(59, 130, 246, ${blueBase})`);
+          gradient.addColorStop(1, `rgba(217, 31, 63, ${redBase})`);
+        } else {
+          const blueMid = 0.018 + waveIntensity * 0.03;
+          const blueBase = 0.03 + waveIntensity * 0.05;
+          const redBase = 0.018 + waveIntensity * 0.035;
+
+          gradient.addColorStop(0, "rgba(250, 250, 250, 0)");
+          gradient.addColorStop(0.35, `rgba(34, 86, 163, ${blueMid})`);
+          gradient.addColorStop(0.72, `rgba(34, 86, 163, ${blueBase})`);
+          gradient.addColorStop(1, `rgba(217, 31, 63, ${redBase})`);
+        }
 
         ctx.fillStyle = gradient;
         ctx.beginPath();
@@ -86,16 +104,26 @@ export function HeroAuraCanvas() {
     animate();
     window.addEventListener("resize", resize);
 
+    // Re-render on theme change
+    const observer = new MutationObserver(() => {
+      // Theme changed, animation will pick it up on next frame
+    });
+    observer.observe(document.documentElement, {
+      attributes: true,
+      attributeFilter: ["data-theme"],
+    });
+
     return () => {
       window.removeEventListener("resize", resize);
       window.cancelAnimationFrame(animationFrame);
+      observer.disconnect();
     };
   }, []);
 
-    return (
+  return (
     <canvas
       ref={canvasRef}
-      className="absolute inset-0 z-0 h-full w-full pointer-events-none opacity-38"
+      className="absolute inset-0 z-0 h-full w-full pointer-events-none opacity-50"
     />
   );
 }

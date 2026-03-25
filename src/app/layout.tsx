@@ -2,6 +2,7 @@ import type { Metadata } from "next";
 import { Inter, Playfair_Display } from "next/font/google";
 import { Footer } from "@/components/footer";
 import { Header } from "@/components/header";
+import { ThemeProvider } from "@/components/theme-provider";
 import "./globals.css";
 
 const sans = Inter({
@@ -18,7 +19,7 @@ const display = Playfair_Display({
 export const metadata: Metadata = {
   title: "MGC ASIA | Build Grow Scale",
   description:
-    "Website moi cho MGC ASIA, agency tang truong TikTok Shop va thuong mai dien tu.",
+    "MGC ASIA không chỉ cung cấp dịch vụ, chúng tôi đồng hành cùng doanh nghiệp với vai trò Giám đốc Marketing và Thương mại điện tử.",
 };
 
 export default function RootLayout({
@@ -28,15 +29,34 @@ export default function RootLayout({
 }>) {
   return (
     <html
-      lang="en"
+      lang="vi"
       className={`${sans.variable} ${display.variable} h-full scroll-smooth antialiased`}
+      suppressHydrationWarning
     >
-      <body className="min-h-full bg-[var(--bg)] text-[var(--foreground)]">
-        <div className="page-shell">
-          <Header />
-          <main className="flex-1">{children}</main>
-          <Footer />
-        </div>
+      <head>
+        <script
+          dangerouslySetInnerHTML={{
+            __html: `
+              (function() {
+                var t = localStorage.getItem('mgc-theme');
+                if (t === 'light' || t === 'dark') {
+                  document.documentElement.setAttribute('data-theme', t);
+                } else {
+                  document.documentElement.setAttribute('data-theme', 'dark');
+                }
+              })();
+            `,
+          }}
+        />
+      </head>
+      <body className="min-h-full">
+        <ThemeProvider>
+          <div className="page-shell">
+            <Header />
+            <main className="flex-1">{children}</main>
+            <Footer />
+          </div>
+        </ThemeProvider>
       </body>
     </html>
   );
