@@ -1,40 +1,97 @@
 import Link from "next/link";
 import { company, navLinks, services } from "@/lib/site-data";
 
+const LOGO = "https://mgcasia.vn/wp-content/uploads/2026/03/logo-mgc-new.png";
+
 export function Footer() {
   return (
-    <footer className="border-t pt-16 pb-8" style={{ borderColor: "var(--line)", background: "var(--footer-bg)" }}>
-      <div className="mx-auto max-w-7xl px-6 lg:px-8">
-        <div className="mb-16 grid grid-cols-1 gap-12 md:grid-cols-2 lg:grid-cols-6 lg:gap-8">
-          <div className="lg:col-span-2">
-            <div className="mb-6 flex items-center gap-4">
-              <div className="flex h-11 w-11 items-center justify-center rounded-full border text-sm font-medium" style={{ borderColor: "var(--line)", background: "var(--bg-card-subtle)", color: "var(--ink)" }}>
-                M
-              </div>
-              <div>
-                <div className="text-sm font-medium uppercase tracking-[0.34em]" style={{ color: "var(--ink)" }}>
-                  {company.name}
-                </div>
-                <div className="mt-1 text-[11px] uppercase tracking-[0.34em]" style={{ color: "var(--muted)" }}>
-                  {company.tagline}
-                </div>
-              </div>
-            </div>
+    <footer className="site-footer">
+      <div className="mx-auto max-w-7xl px-6 lg:px-8 pt-14 pb-8">
 
-            <p className="max-w-sm text-sm leading-relaxed" style={{ color: "var(--muted)" }}>
-              Đối tác tăng trưởng TikTok Shop và thương mại điện tử, đồng hành từ
-              chiến lược đến vận hành để giúp doanh nghiệp scale bền vững.
+        {/* Main grid */}
+        <div className="grid grid-cols-1 gap-10 md:grid-cols-2 lg:grid-cols-4 mb-12">
+
+          {/* Col 1: Logo + mô tả */}
+          <div>
+            <img
+              src={LOGO}
+              alt="MGC ASIA"
+              className="h-9 w-auto mb-5"
+              style={{ filter: "brightness(0) invert(1)" }}
+            />
+            <p className="text-sm leading-relaxed mb-5" style={{ color: "rgba(148,163,184,0.9)" }}>
+              Đối tác tăng trưởng TikTok Shop và thương mại điện tử — đồng hành từ chiến lược đến vận hành, giúp doanh nghiệp scale bền vững.
             </p>
+            <div className="flex items-center gap-3">
+              {company.social.map((item) => (
+                <a
+                  key={item.label}
+                  href={item.href}
+                  target="_blank"
+                  rel="noreferrer"
+                  className="text-xs font-medium px-3 py-1.5 rounded transition-colors"
+                  style={{
+                    background: "rgba(255,255,255,0.08)",
+                    color: "rgba(203,213,225,0.85)",
+                  }}
+                >
+                  {item.label}
+                </a>
+              ))}
+            </div>
           </div>
 
-          <div className="hidden lg:block lg:col-span-1" />
-
+          {/* Col 2: Liên hệ */}
           <div>
-            <h3 className="mb-4 text-sm font-medium" style={{ color: "var(--ink)" }}>Điều hướng</h3>
+            <h4
+              className="text-xs font-bold uppercase tracking-widest mb-5"
+              style={{ color: "#ffffff" }}
+            >
+              Liên hệ
+            </h4>
+            <ul className="space-y-3 text-sm" style={{ color: "rgba(148,163,184,0.9)" }}>
+              <li className="leading-relaxed">
+                {company.address}
+              </li>
+              <li>
+                <a
+                  href={`tel:${company.phone.replace(/\s/g, "")}`}
+                  className="hover:text-white transition-colors"
+                >
+                  {company.phone}
+                </a>
+              </li>
+              <li>
+                <a
+                  href={`mailto:${company.email}`}
+                  className="hover:text-white transition-colors"
+                >
+                  {company.email}
+                </a>
+              </li>
+              <li style={{ color: "rgba(148,163,184,0.65)", fontSize: "0.78rem", lineHeight: 1.6 }}>
+                Thứ 2 – Thứ 6: 08:00 – 17:00<br />
+                Thứ 7: 08:00 – 12:00
+              </li>
+            </ul>
+          </div>
+
+          {/* Col 3: Trang */}
+          <div>
+            <h4
+              className="text-xs font-bold uppercase tracking-widest mb-5"
+              style={{ color: "#ffffff" }}
+            >
+              Điều hướng
+            </h4>
             <ul className="space-y-3">
-              {navLinks.slice(0, 4).map((link) => (
+              {navLinks.map((link) => (
                 <li key={link.href}>
-                  <Link href={link.href} className="cursor-pointer text-sm transition-colors" style={{ color: "var(--muted)" }}>
+                  <Link
+                    href={link.href}
+                    className="text-sm hover:text-white transition-colors"
+                    style={{ color: "rgba(148,163,184,0.9)" }}
+                  >
                     {link.label}
                   </Link>
                 </li>
@@ -42,60 +99,46 @@ export function Footer() {
             </ul>
           </div>
 
+          {/* Col 4: Dịch vụ */}
           <div>
-            <h3 className="mb-4 text-sm font-medium" style={{ color: "var(--ink)" }}>Dịch vụ</h3>
+            <h4
+              className="text-xs font-bold uppercase tracking-widest mb-5"
+              style={{ color: "#ffffff" }}
+            >
+              Dịch vụ
+            </h4>
             <ul className="space-y-3">
-              {services.slice(0, 4).map((service) => (
-                <li key={service.slug}>
+              {services.map((s) => (
+                <li key={s.slug}>
                   <Link
-                    href={`/dich-vu/${service.slug}`}
-                    className="cursor-pointer text-sm transition-colors"
-                    style={{ color: "var(--muted)" }}
+                    href={`/dich-vu/${s.slug}`}
+                    className="text-sm hover:text-white transition-colors leading-snug block"
+                    style={{ color: "rgba(148,163,184,0.9)" }}
                   >
-                    {service.name}
+                    {s.name}
                   </Link>
                 </li>
               ))}
             </ul>
           </div>
-
-          <div>
-            <h3 className="mb-4 text-sm font-medium" style={{ color: "var(--ink)" }}>Kết nối</h3>
-            <ul className="space-y-3">
-              {company.social.map((item) => (
-                <li key={item.label}>
-                  <a
-                    href={item.href}
-                    target="_blank"
-                    rel="noreferrer"
-                    className="cursor-pointer text-sm transition-colors"
-                    style={{ color: "var(--muted)" }}
-                  >
-                    {item.label}
-                  </a>
-                </li>
-              ))}
-              <li>
-                <Link href="/lien-he" className="cursor-pointer text-sm transition-colors" style={{ color: "var(--muted)" }}>
-                  Liên hệ
-                </Link>
-              </li>
-            </ul>
-          </div>
         </div>
 
-        <div className="flex flex-col items-center justify-between gap-6 border-t pt-8 md:flex-row" style={{ borderColor: "var(--line)" }}>
-          <div className="text-center md:text-left">
-            <p className="text-sm" style={{ color: "var(--muted-light)" }}>&copy; 2026 MGC ASIA. All rights reserved.</p>
-          </div>
-          <div className="flex items-center gap-6 text-sm" style={{ color: "var(--muted-light)" }}>
-            <a href={`mailto:${company.email}`} className="cursor-pointer transition-colors hover:opacity-80">
+        {/* Bottom bar */}
+        <div
+          className="flex flex-col sm:flex-row items-center justify-between gap-3 pt-6"
+          style={{ borderTop: "1px solid rgba(255,255,255,0.08)" }}
+        >
+          <p className="text-xs" style={{ color: "rgba(148,163,184,0.55)" }}>
+            © 2026 MGC ASIA (Make Good Choices). All rights reserved.
+          </p>
+          <div className="flex items-center gap-4 text-xs" style={{ color: "rgba(148,163,184,0.55)" }}>
+            <a href={`mailto:${company.email}`} className="hover:text-white transition-colors">
               Email
             </a>
-            <a href={`tel:${company.phone.replace(/\s+/g, "")}`} className="cursor-pointer transition-colors hover:opacity-80">
+            <a href={`tel:${company.phone.replace(/\s/g, "")}`} className="hover:text-white transition-colors">
               Hotline
             </a>
-            <a href={company.zalo} target="_blank" rel="noreferrer" className="cursor-pointer transition-colors hover:opacity-80">
+            <a href={company.zalo} target="_blank" rel="noreferrer" className="hover:text-white transition-colors">
               Zalo
             </a>
           </div>
