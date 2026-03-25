@@ -23,6 +23,19 @@
 # misc
 .DS_Store
 *.pem
+.agent/
+.claude/
+.codebuddy/
+.codex/
+.continue/
+.cursor/
+.gemini/
+.kiro/
+.opencode/
+.qoder/
+.roo/
+.trae/
+.windsurf/
 
 # debug
 npm-debug.log*
