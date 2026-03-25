@@ -39,10 +39,14 @@ export function HeroAuraCanvas() {
       time += 0.003;
       const isDark = getTheme() === "dark";
 
-      const baseFill = isDark ? "rgba(10, 14, 26, 0.92)" : "rgba(250, 250, 250, 0.92)";
+      // In light mode, use fully opaque white base
+      const baseFill = isDark ? "rgba(10, 14, 26, 0.92)" : "#fafafa";
       ctx.fillStyle = baseFill;
       ctx.fillRect(0, 0, width, height);
       ctx.globalCompositeOperation = isDark ? "screen" : "multiply";
+
+      // Adjust canvas element opacity based on theme
+      canvas.style.opacity = isDark ? "0.5" : "0.38";
 
       const numFolds = 14;
       for (let i = 0; i < numFolds; i += 1) {
@@ -123,7 +127,7 @@ export function HeroAuraCanvas() {
   return (
     <canvas
       ref={canvasRef}
-      className="absolute inset-0 z-0 h-full w-full pointer-events-none opacity-50"
+      className="absolute inset-0 z-0 h-full w-full pointer-events-none"
     />
   );
 }

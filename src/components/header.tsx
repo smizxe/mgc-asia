@@ -48,9 +48,9 @@ export function Header() {
 
           <div className="absolute left-1/2 hidden -translate-x-1/2 items-center lg:flex">
             <nav
-              className="flex items-center rounded-full border p-1 backdrop-blur-md"
+              className="flex items-center rounded-full border p-1 shadow-sm backdrop-blur-md"
               style={{
-                borderColor: "var(--line)",
+                borderColor: "var(--glass-border)",
                 background: "var(--nav-bg)",
               }}
             >

@@ -381,7 +381,13 @@ a {
   border-radius: 999px;
   filter: blur(80px);
   pointer-events: none;
-  opacity: 0.5;
+  opacity: var(--aurora-bg-visible, 0.5);
+}
+
+/* In light mode, show very subtle orbs */
+[data-theme="light"] .glow-orb {
+  opacity: 0.35;
+  filter: blur(100px);
 }
 
 /* ─── Stats counter animation ─── */
@@ -527,6 +533,74 @@ a {
 
 .animate-fade-in-up {
   animation: fade-in-up 0.7s ease-out both;
+}
+
+/* ─── Light theme specific overrides ─── */
+[data-theme="light"] .hero-section {
+  background:
+    radial-gradient(ellipse at 20% 30%, rgba(34, 86, 163, 0.04) 0%, transparent 50%),
+    radial-gradient(ellipse at 80% 70%, rgba(217, 31, 63, 0.03) 0%, transparent 50%),
+    #fafafa;
+}
+
+[data-theme="light"] .section-alt {
+  background:
+    radial-gradient(ellipse at 50% 0%, rgba(34, 86, 163, 0.03) 0%, transparent 40%),
+    #f5f7fa;
+}
+
+[data-theme="light"] .glass-card {
+  box-shadow:
+    0 4px 24px rgba(15, 23, 42, 0.06),
+    0 1px 3px rgba(15, 23, 42, 0.04);
+}
+
+[data-theme="light"] .glass-card-hover:hover {
+  box-shadow:
+    0 12px 40px rgba(15, 23, 42, 0.1),
+    0 4px 12px rgba(15, 23, 42, 0.06);
+}
+
+[data-theme="light"] .gradient-border-card {
+  background: linear-gradient(180deg, #ffffff 0%, #f8fafc 100%);
+  box-shadow: 0 4px 24px rgba(15, 23, 42, 0.05);
+}
+
+[data-theme="light"] .testimonial-card {
+  box-shadow: 0 4px 20px rgba(15, 23, 42, 0.05);
+}
+
+[data-theme="light"] .testimonial-card:hover {
+  box-shadow: 0 12px 40px rgba(15, 23, 42, 0.08);
+}
+
+[data-theme="light"] .dashboard-shell {
+  box-shadow:
+    0 30px 60px -15px rgba(15, 23, 42, 0.1),
+    0 10px 24px -10px rgba(15, 23, 42, 0.06);
+  border-color: #e2e8f0;
+}
+
+[data-theme="light"] .panel-soft {
+  box-shadow:
+    0 20px 50px rgba(15, 23, 42, 0.08),
+    0 4px 12px rgba(15, 23, 42, 0.04);
+  border-color: #e2e8f0;
+}
+
+[data-theme="light"] .stat-card.gradient-border-card {
+  background: #ffffff;
+}
+
+[data-theme="light"] .nav-pill-border {
+  border-color: #e2e8f0;
+  box-shadow: 0 2px 8px rgba(0, 0, 0, 0.04);
+}
+
+[data-theme="light"] .footer-cta .floating-badge {
+  border-color: rgba(34, 86, 163, 0.2);
+  background: rgba(34, 86, 163, 0.08);
+  color: #93c5fd;
 }
 
 /* ─── Responsive ─── */
